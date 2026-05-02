@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Outfit", sans-serif;
+  overflow-x: clip;
+}
+
+@layer base {
+  :root {
+    /* Dark trading terminal theme */
+    --background: 222 13% 9%;
+    --foreground: 210 20% 98%;
+    
+    --card: 222 13% 11%;
+    --card-foreground: 210 20% 98%;
+    
+    --popover: 222 13% 11%;
+    --popover-foreground: 210 20% 98%;
+    
+    --primary: 189 94% 43%;
+    --primary-foreground: 210 20% 98%;
+    
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 20% 98%;
+    
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 20% 98%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 20% 98%;
+    
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 189 94% 43%;
+    
+    --radius: 0.5rem;
+    
+    /* Trading-specific colors */
+    --price-up: 142 76% 36%;
+    --price-down: 0 84% 60%;
+    --alert-high: 25 95% 53%;
+    --alert-low: 189 94% 43%;
+    
+    /* Sidebar */
+    --sidebar-background: 222 13% 11%;
+    --sidebar-foreground: 210 20% 98%;
+    --sidebar-primary: 189 94% 43%;
+    --sidebar-primary-foreground: 210 20% 98%;
+    --sidebar-accent: 217 33% 17%;
+    --sidebar-accent-foreground: 210 20% 98%;
+    --sidebar-border: 217 33% 17%;
+    --sidebar-ring: 189 94% 43%;
+  }
+  
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Monospace font for numbers */
+  .font-mono {
+    font-family: "JetBrains Mono", monospace;
+    font-variant-numeric: tabular-nums;
+  }
+  
+  /* Text balance for headings */
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+  }
+}
+
+@layer utilities {
+  /* Price movement utilities */
+  .text-price-up {
+    color: hsl(var(--price-up));
+  }
+  
+  .text-price-down {
+    color: hsl(var(--price-down));
+  }
+  
+  .bg-price-up {
+    background-color: hsl(var(--price-up));
+  }
+  
+  .bg-price-down {
+    background-color: hsl(var(--price-down));
+  }
+  
+  .border-price-up {
+    border-color: hsl(var(--price-up));
+  }
+  
+  .border-price-down {
+    border-color: hsl(var(--price-down));
+  }
+  
+  /* Alert state utilities */
+  .text-alert-high {
+    color: hsl(var(--alert-high));
+  }
+  
+  .text-alert-low {
+    color: hsl(var(--alert-low));
+  }
+  
+  .bg-alert-high {
+    background-color: hsl(var(--alert-high));
+  }
+  
+  .bg-alert-low {
+    background-color: hsl(var(--alert-low));
+  }
+  
+  .border-alert-high {
+    border-color: hsl(var(--alert-high));
+  }
+  
+  .border-alert-low {
+    border-color: hsl(var(--alert-low));
+  }
+}
