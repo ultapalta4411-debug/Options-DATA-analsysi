@@ -76,7 +76,7 @@ const SettingsPage = () => {
       // Expected fallback if backend uses standard redirect and fetch fails due to CORS
     }
     // Fallback to direct navigation
-    window.location.href = '/hcgi/api/angel-one/login';
+    window.location.href = `${apiServerClient.baseUrl}/angel-one/login`;
   };
 
   const handleDisconnectOAuth = async () => {
@@ -224,7 +224,7 @@ const SettingsPage = () => {
             </CardHeader>
             <CardContent className="space-y-6">
               
-              {/* OAuth Flow */}
+              {/* SmartAPI OAuth Login */}
               <div className="p-4 bg-muted/30 rounded-lg border border-border space-y-4">
                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                     <div>
@@ -237,7 +237,7 @@ const SettingsPage = () => {
                           )}
                        </h3>
                        <p className="text-sm text-muted-foreground mt-1">
-                          Authenticate directly with your broker securely.
+                          Connect to Angel One SmartAPI using OAuth. You'll be redirected to Angel One's secure login page.
                        </p>
                        {oauthConnected && oauthExpiresAt && (
                           <p className="text-xs text-muted-foreground mt-2 flex items-center gap-1.5">

@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Routes, BrowserRouter as Router, useLocation, useNavigate } from 'react-router-dom';
+import { Route, Routes, BrowserRouter as Router, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import Header from './components/Header.jsx';
 import Sidebar from './components/Sidebar.jsx';
-import LoginPage from './pages/LoginPage.jsx';
-import SignupPage from './pages/SignupPage.jsx';
 import DashboardPage from './pages/DashboardPage.jsx';
 import OptionChainPage from './pages/OptionChainPage.jsx';
 import PCRIVPage from './pages/PCRIVPage.jsx';
@@ -54,8 +52,8 @@ function App() {
           <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
           
           <Routes>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/login" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/signup" element={<Navigate to="/dashboard" replace />} />
             
             <Route
               path="/*"

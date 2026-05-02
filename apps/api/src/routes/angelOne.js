@@ -1,6 +1,7 @@
 import express from 'express';
 import {
 	generateLoginRedirectURL,
+	loginWithSmartAPI,
 	handleOAuthCallback,
 	storeAuthToken,
 	getValidToken,
@@ -19,6 +20,7 @@ const API_SECRET = process.env.ANGEL_ONE_API_SECRET;
  * GET /angel-one/login
  * Generate Angel One SmartAPI login redirect URL
  * Redirects user to Angel One login page with embedded credentials
+ * According to SmartAPI documentation: https://smartapi.angelone.in/docs
  */
 router.get('/login', async (req, res) => {
 	logger.info('Login endpoint called');
@@ -51,6 +53,7 @@ router.get('/callback', async (req, res) => {
 	// Prepare callback data from query parameters
 	const callbackData = {
 		code,
+		// Include other params for fallback
 		token: token || jwtToken,
 		jwtToken: token || jwtToken,
 		expiresIn: parseInt(req.query.expiresIn) || 3600,
@@ -63,12 +66,14 @@ router.get('/callback', async (req, res) => {
 	const finalUserId = userId || `user_${Date.now()}`;
 
 	// Store token securely
-	await storeAuthToken(finalUserId, authResult.token, authResult.expiresAt);
+	await storeAuthToken(finalUserId, authResult.token, authResult.expiresAt, authResult.refreshToken, authResult.feedToken);
 
 	logger.info(`Token stored for user: ${finalUserId}`);
 
 	// Redirect to frontend dashboard with token in query parameter
-	const dashboardUrl = `/dashboard?token=${encodeURIComponent(authResult.token)}&userId=${encodeURIComponent(finalUserId)}&expiresAt=${authResult.expiresAt}`;
+	// In development, frontend is at localhost:3000
+	const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+	const dashboardUrl = `${frontendUrl}/dashboard?token=${encodeURIComponent(authResult.token)}&userId=${encodeURIComponent(finalUserId)}&expiresAt=${authResult.expiresAt}`;
 
 	logger.info(`Redirecting to dashboard: ${dashboardUrl}`);
 	res.redirect(dashboardUrl);
